@@ -11,15 +11,17 @@ public class Avalanche {
     private static final float SPAWNS_PER_SECOND = 10;
 
     Array<Boulder> boulders;
+    Wind avalancheWind;
 
-    public Avalanche(){
+    public Avalanche(Wind wind){
         boulders = new Array<Boulder>();
+        avalancheWind = wind;
     }
 
     public void update(float delta, Viewport viewport){
         Random random = new Random();
         if (random.nextFloat() < delta * SPAWNS_PER_SECOND){
-            boulders.add(new Boulder(viewport));
+            boulders.add(new Boulder(viewport, avalancheWind));
         }
 
         for (int i = 0; i < boulders.size; i++){

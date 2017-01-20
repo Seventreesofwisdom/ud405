@@ -55,6 +55,8 @@ public class CyclicOverlap extends ApplicationAdapter {
         renderer.rect(2, 3.5f, 3, 1.5f, 6, 1, 1, 1, 120);
         renderer.setColor(Color.BLUE);
         renderer.rect(2, 3.5f, 3, 1.5f, 6, 1, 1, 1, 240);
+        renderer.setColor(Color.RED);
+        renderer.rect(2, 3.5f, 3, 1.5f, 3, 1, 1, 1, 0);
 
         // TODO: Make it look like the left end of RED is on top of BLUE
 

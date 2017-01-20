@@ -18,13 +18,15 @@ public class FallingObjectsScreen extends ScreenAdapter {
 
 
     Avalanche avalanche;
+    Wind wind;
 
     @Override
     public void show() {
 
         renderer = new ShapeRenderer();
         viewport = new ExtendViewport(WORLD_SIZE, WORLD_SIZE);
-        avalanche = new Avalanche();
+        wind = new Wind();
+        avalanche = new Avalanche(wind);
 
     }
 
@@ -44,6 +46,7 @@ public class FallingObjectsScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        wind.update(delta);
         avalanche.update(delta, viewport);
 
         renderer.setProjectionMatrix(viewport.getCamera().combined);

@@ -5,6 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 /**
@@ -23,13 +25,13 @@ public class ReciprocatingMotion extends ApplicationAdapter {
     private static final float MOVEMENT_DISTANCE = WORLD_SIZE / 4;
 
     // TODO: Define a constant that fixes how long a cycle of the animation should take in seconds
-
+    private static final float CYCLE_TIME = 4;
 
     ShapeRenderer renderer;
     ExtendViewport viewport;
 
     // TODO: Create a long to hold onto ApplicationAdapter creation time
-
+    private long creationTime;
 
     @Override
     public void create() {
@@ -37,7 +39,7 @@ public class ReciprocatingMotion extends ApplicationAdapter {
         viewport = new ExtendViewport(WORLD_SIZE, WORLD_SIZE);
 
         // TODO: Save current value of TimeUtils.nanoTime()
-
+        creationTime = TimeUtils.nanoTime();
     }
 
     @Override
@@ -65,21 +67,21 @@ public class ReciprocatingMotion extends ApplicationAdapter {
         float worldCenterY = viewport.getWorldHeight() / 2;
 
         // TODO: Figure out how long it's been since the animation started using TimeUtils.nanoTime()
-
+        float elapsedTimeNano = TimeUtils.nanoTime() - creationTime;
 
         // TODO: Use MathUtils.nanoToSec to figure out how many seconds the animation has been running
-
+        float elapsedTimeSec = MathUtils.nanoToSec * elapsedTimeNano;
 
         // TODO: Figure out how many cycles have elapsed since the animation started running
-
+        float elapsedCycles = elapsedTimeSec / CYCLE_TIME;
 
         // TODO: Figure out where in the cycle we are
-
+        float cyclePosition = elapsedCycles % 1;
 
         // TODO: Use MathUtils.sin() to set the x position of the circle
 
 
-        float x = worldCenterX;
+        float x = worldCenterX + MOVEMENT_DISTANCE * MathUtils.sin(2*MathUtils.PI*cyclePosition);
         float y = worldCenterY;
         renderer.circle(x, y, CIRCLE_RADIUS);
         renderer.end();

@@ -121,9 +121,9 @@ public class Closeup extends ApplicationAdapter {
     public void resize(int width, int height) {
         float aspectRatio = 1.0f * width / height;
         camera.setToOrtho(false, width, height);
-//        trackStar(camera, aspectRatio);
-//        trackPlanet(camera, aspectRatio);
-        trackSatellite(camera, aspectRatio);
+        trackStar(camera, aspectRatio);
+        trackPlanet(camera, aspectRatio);
+//        trackSatellite(camera, aspectRatio);
     }
 
 

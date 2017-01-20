@@ -14,33 +14,37 @@ public class Boulder {
     private static final Color COLOR = Color.RED;
 
     // TODO: Declare a constant holding the acceleration due to gravity. -20 works well
-
+    private static final float GRAVITY = -20;
+    private static final float WIND = 5;
 
     Vector2 position;
     Vector2 velocity;
     float radius;
+    Wind boulderWind;
 
-    public Boulder(Viewport viewport){
-        init(viewport);
+    public Boulder(Viewport viewport, Wind wind){
+        init(viewport, wind);
 
     }
 
-    public void init(Viewport viewport){
+    public void init(Viewport viewport, Wind wind){
         position = new Vector2();
 
         // TODO: Set the initial velocity to zero in both directions
-        velocity = new Vector2(0, -200);
+        velocity = new Vector2(0, 0);
 
         radius = viewport.getWorldWidth() * RADIUS_RATIO;
         position.y = viewport.getWorldHeight() + radius;
         Random random = new Random();
         position.x = random.nextFloat() * (viewport.getWorldWidth() - 2 * radius) + radius;
+        boulderWind = wind;
     }
 
 
     public void update(float delta){
         // TODO: Apply gravitational acceleration to the vertical velocity
-
+        velocity.y += delta * GRAVITY;
+        velocity.x += delta * boulderWind.getWind();
 
         position.x += delta * velocity.x;
         position.y += delta * velocity.y;

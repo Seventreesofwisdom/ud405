@@ -2,6 +2,7 @@ package com.udacity.gamedev.dragoncurve;
 
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class DragonCurveGenerator {
@@ -31,13 +32,26 @@ public class DragonCurveGenerator {
 
         for (int i = 0; i < recursions; i++){
             // TODO: Create a reversed copy of turns
-
+            //System.out.println(i);
+            LinkedList<Direction>  turnsReverseReflect = new LinkedList<Direction>();
+            Iterator<Direction> iterateReverse = turns.descendingIterator();
+            while (iterateReverse.hasNext()) {
+                Direction dir = iterateReverse.next();
+                if (dir == Direction.LEFT) {
+                    turnsReverseReflect.add(Direction.RIGHT);
+                    //System.out.println("right");
+                }
+                else {
+                    turnsReverseReflect.add(Direction.LEFT);
+                    //System.out.println("left");
+                }
+            }
 
             // TODO: Add a left turn to turns
-
+            turns.add(Direction.LEFT);
 
             // TODO: Add reflected version of reversed to turns
-
+            turns.addAll(turnsReverseReflect);
         }
         return turns;
     }
@@ -56,7 +70,17 @@ public class DragonCurveGenerator {
         curve[i++] = head.y;
 
         //TODO: Convert the list of turns into the actual path
+        for (Direction dir: turns) {
 
+            heading = dir.turn(heading, dir);
+            //System.out.println(i);
+            //System.out.format("xprev = %f, yprev = %f, heading x = %f, heading y = %f%n", curve[i-2], curve[i-1], heading.x, heading.y);
+            curve[i] = curve[i-2] + heading.x;
+            i++;
+            curve[i] = curve[i-2] + heading.y;
+            i++;
+
+        }
 
         return curve;
 
